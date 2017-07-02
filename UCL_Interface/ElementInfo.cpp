@@ -62,8 +62,8 @@ BOOL ElementInfo::OnInitDialog()
 	smallRect->top = largeRect->top;
 	smallRect->bottom = rectSeparator.bottom;
 
-	SetWindowPos(NULL, 0, 0, smallRect->Width(), smallRect->Height(),
-		SWP_NOMOVE);		//设置窗口位置
+	SetWindowPos(NULL, 0, 0, smallRect->Width(), smallRect->Height(),SWP_NOMOVE);		//设置窗口位置
+	isSmall = true;
 
 	UpdateData(false);
 
@@ -74,6 +74,17 @@ BOOL ElementInfo::OnInitDialog()
 
 void ElementInfo::OnClickedButtonDetail()
 {
-		SetWindowPos(NULL, 0, 0, largeRect->Width(), largeRect->Height(),
-					SWP_NOMOVE );		//设置窗口位置
+	if (isSmall)
+	{
+		SetWindowPos(NULL, 0, 0, largeRect->Width(), largeRect->Height(), SWP_NOMOVE);
+		isSmall = false;
+		GetDlgItem(IDC_BUTTON_Detail)->SetWindowTextW(_T("收起"));
+	}
+	else if (!isSmall)
+	{
+		SetWindowPos(NULL, 0, 0, smallRect->Width(), smallRect->Height(), SWP_NOMOVE);
+		isSmall = true;
+		GetDlgItem(IDC_BUTTON_Detail)->SetWindowTextW(_T("展开"));
+	}
+	
 }

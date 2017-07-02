@@ -33,7 +33,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnClickedOpen();
-//	CString m_filename;
 	afx_msg void OnClickedReset();
 	afx_msg void OnClickedVersion();
 	afx_msg void OnClickedTypeOfMedia();
@@ -45,7 +44,6 @@ public:
 	afx_msg void OnClickedSubcategory();
 	afx_msg void OnClickedTopic();
 	afx_msg void OnClickedTypeOfContent();
-	afx_msg void OnClickedCopyrightAndLength();
 	afx_msg void OnClickedSecurityLevel();
 	afx_msg void OnClickedTimeStamp();
 	afx_msg void OnClickedSerialNumber();

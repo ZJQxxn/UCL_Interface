@@ -27,7 +27,7 @@ public:
 	int m_eleNum;
 	CString m_parseRule;
 	CString m_roughInfo;
-
+	bool isSmall;	//Indicate whether this window is small or large
 	virtual BOOL OnInitDialog();
 	afx_msg void OnClickedButtonDetail();
 

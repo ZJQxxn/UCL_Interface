@@ -81,7 +81,6 @@ BEGIN_MESSAGE_MAP(CUCL_InterfaceDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_SUBCATEGORY, &CUCL_InterfaceDlg::OnClickedSubcategory)
 	ON_BN_CLICKED(IDC_TOPIC, &CUCL_InterfaceDlg::OnClickedTopic)
 	ON_BN_CLICKED(IDC_TYPE_OF_CONTENT, &CUCL_InterfaceDlg::OnClickedTypeOfContent)
-	ON_BN_CLICKED(IDC_COPYRIGHT_AND_LENGTH, &CUCL_InterfaceDlg::OnClickedCopyrightAndLength)
 	ON_BN_CLICKED(IDC_SECURITY_LEVEL, &CUCL_InterfaceDlg::OnClickedSecurityLevel)
 	ON_BN_CLICKED(IDC_TIME_STAMP, &CUCL_InterfaceDlg::OnClickedTimeStamp)
 	ON_BN_CLICKED(IDC_SERIAL_NUMBER, &CUCL_InterfaceDlg::OnClickedSerialNumber)
@@ -359,19 +358,6 @@ void CUCL_InterfaceDlg::OnClickedTypeOfContent()
 	else
 	{
 		MessageBox(_T("type of content"), _T("内容类型"), 0);
-	}
-}
-
-
-void CUCL_InterfaceDlg::OnClickedCopyrightAndLength()
-{
-	if (ucl == nullptr)
-	{
-		AfxMessageBox(_T("未打开ucl包"));
-	}
-	else
-	{
-		MessageBox(_T("copyright and length"), _T("版权与长度"), 0);
 	}
 }
 
