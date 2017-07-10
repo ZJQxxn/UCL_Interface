@@ -7,6 +7,7 @@
 #include "UCL_InterfaceDlg.h"
 #include "afxdialogex.h"
 #include "global.h"
+#include "Code_Exp.h"
 #include <iterator>
 using namespace std;
 
@@ -73,7 +74,6 @@ BEGIN_MESSAGE_MAP(CUCL_InterfaceDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_RESET, &CUCL_InterfaceDlg::OnClickedReset)
 	ON_BN_CLICKED(IDC_VERSION, &CUCL_InterfaceDlg::OnClickedVersion)
 	ON_BN_CLICKED(IDC_TYPE_OF_MEDIA, &CUCL_InterfaceDlg::OnClickedTypeOfMedia)
-	ON_BN_CLICKED(IDC_PRECEDENCE, &CUCL_InterfaceDlg::OnClickedPrecedence)
 	ON_BN_CLICKED(IDC_FLAG, &CUCL_InterfaceDlg::OnClickedFlag)
 	ON_BN_CLICKED(IDC_DECODE_RULE, &CUCL_InterfaceDlg::OnClickedDecodeRule)
 	ON_BN_CLICKED(IDC_SOURCE_OF_CONTENT, &CUCL_InterfaceDlg::OnClickedSourceOfContent)
@@ -84,12 +84,14 @@ BEGIN_MESSAGE_MAP(CUCL_InterfaceDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_SECURITY_LEVEL, &CUCL_InterfaceDlg::OnClickedSecurityLevel)
 	ON_BN_CLICKED(IDC_TIME_STAMP, &CUCL_InterfaceDlg::OnClickedTimeStamp)
 	ON_BN_CLICKED(IDC_SERIAL_NUMBER, &CUCL_InterfaceDlg::OnClickedSerialNumber)
-	ON_BN_CLICKED(IDC_RESERVED_BYTES, &CUCL_InterfaceDlg::OnClickedReservedBytes)
 	ON_BN_CLICKED(IDC_CHECKSUM, &CUCL_InterfaceDlg::OnClickedChecksum)
 	ON_BN_CLICKED(IDC_TOTAL_HEAD, &CUCL_InterfaceDlg::OnClickedTotalHead)
-	//ON_BN_CLICKED(IDC_SNPS, &CUCL_InterfaceDlg::OnClickedSnps)
 	ON_BN_CLICKED(IDC_CDPS, &CUCL_InterfaceDlg::OnClickedCdps)
 	ON_BN_CLICKED(IDC_CGPS, &CUCL_InterfaceDlg::OnClickedCgps)
+	ON_BN_CLICKED(IDC_Priority_Policy, &CUCL_InterfaceDlg::OnClickedPriorityPolicy)
+	ON_BN_CLICKED(IDC_LANGUAGE, &CUCL_InterfaceDlg::OnClickedLanguage)
+	ON_BN_CLICKED(IDC_CONTENT_LENGTH, &CUCL_InterfaceDlg::OnClickedContentLength)
+	ON_BN_CLICKED(IDC_MULTIPLEX_BYTES, &CUCL_InterfaceDlg::OnClickedMultiplexBytes)
 END_MESSAGE_MAP()
 
 
@@ -181,6 +183,8 @@ HCURSOR CUCL_InterfaceDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
 void CUCL_InterfaceDlg::OnClickedOpen()
 {
 	UpdateData(true);
@@ -223,14 +227,12 @@ void CUCL_InterfaceDlg::OnClickedOpen()
 	}
 }
 
-
 void CUCL_InterfaceDlg::OnClickedReset()
 {
 	m_filename = _T("F:\\ucl展示\\UCL_Interface\\UCL.txt");
 	UpdateData(false);
 	MessageBox(_T("文件名重置为默认值"),_T("重置"),0);
 }
-
 
 void CUCL_InterfaceDlg::OnClickedVersion()
 {
@@ -240,10 +242,10 @@ void CUCL_InterfaceDlg::OnClickedVersion()
 	}
 	else
 	{
-		MessageBox(_T("version"), _T("版本"), 0);
+		CString version(explainVersion(ucl->getCode()).c_str());
+		MessageBox(version, _T("版本"), 0);
 	}
 }
-
 
 void CUCL_InterfaceDlg::OnClickedTypeOfMedia()
 {
@@ -253,12 +255,12 @@ void CUCL_InterfaceDlg::OnClickedTypeOfMedia()
 	}
 	else
 	{
-		MessageBox(_T("type of media"), _T("媒体类型"), 0);
+		CString TM(explainTM(ucl->getCode()).c_str());
+		MessageBox(TM, _T("媒体类型"), 0);
 	}
 }
 
-
-void CUCL_InterfaceDlg::OnClickedPrecedence()
+void CUCL_InterfaceDlg::OnClickedPriorityPolicy()
 {
 	if (ucl == nullptr)
 	{
@@ -266,10 +268,10 @@ void CUCL_InterfaceDlg::OnClickedPrecedence()
 	}
 	else
 	{
-		MessageBox(_T("precedence"), _T("优先级"), 0);
+		CString PP(explainPP(ucl->getCode()).c_str());
+		MessageBox(PP, _T("优先级与策略"), 0);
 	}
 }
-
 
 void CUCL_InterfaceDlg::OnClickedFlag()
 {
@@ -279,10 +281,10 @@ void CUCL_InterfaceDlg::OnClickedFlag()
 	}
 	else
 	{
-		MessageBox(_T("flag"), _T("标志"), 0);
+		CString flag(explainFlag(ucl->getCode()).c_str());
+		MessageBox(flag, _T("标志"), 0);
 	}
 }
-
 
 void CUCL_InterfaceDlg::OnClickedDecodeRule()
 {
@@ -292,10 +294,10 @@ void CUCL_InterfaceDlg::OnClickedDecodeRule()
 	}
 	else
 	{
-		MessageBox(_T("decode rule"), _T("解码规则"), 0);
+		CString parseRule(explainParseRule(ucl->getCode()).c_str());
+		MessageBox(parseRule, _T("解码规则"), 0);
 	}
 }
-
 
 void CUCL_InterfaceDlg::OnClickedSourceOfContent()
 {
@@ -305,10 +307,10 @@ void CUCL_InterfaceDlg::OnClickedSourceOfContent()
 	}
 	else
 	{
-		MessageBox(_T("source of content"), _T("内容来源"), 0);
+		CString SC(explainSC(ucl->getCode()).c_str());
+		MessageBox(SC, _T("内容来源"), 0);
 	}
 }
-
 
 void CUCL_InterfaceDlg::OnClickedCategory()
 {
@@ -318,10 +320,10 @@ void CUCL_InterfaceDlg::OnClickedCategory()
 	}
 	else
 	{
-		MessageBox(_T("category"), _T("一级类别"), 0);
+		CString category(explainCategory(ucl->getCode()).c_str());
+		MessageBox(category, _T("一级类别"), 0);
 	}
 }
-
 
 void CUCL_InterfaceDlg::OnClickedSubcategory()
 {
@@ -331,10 +333,10 @@ void CUCL_InterfaceDlg::OnClickedSubcategory()
 	}
 	else
 	{
-		MessageBox(_T("subcategory"), _T("二级类别"), 0);
+		CString subcategory(explainSubcategory(ucl->getCode()).c_str());
+		MessageBox(subcategory, _T("二级类别"), 0);
 	}
 }
-
 
 void CUCL_InterfaceDlg::OnClickedTopic()
 {
@@ -344,10 +346,10 @@ void CUCL_InterfaceDlg::OnClickedTopic()
 	}
 	else
 	{
-		MessageBox(_T("topic"), _T("话题"), 0);
+		CString topic(explainTopic(ucl->getCode()).c_str());
+		MessageBox(topic, _T("话题"), 0);
 	}
 }
-
 
 void CUCL_InterfaceDlg::OnClickedTypeOfContent()
 {
@@ -357,10 +359,10 @@ void CUCL_InterfaceDlg::OnClickedTypeOfContent()
 	}
 	else
 	{
-		MessageBox(_T("type of content"), _T("内容类型"), 0);
+		CString CT(explainCT(ucl->getCode()).c_str());
+		MessageBox(CT, _T("内容版权与类型"), 0);
 	}
 }
-
 
 void CUCL_InterfaceDlg::OnClickedSecurityLevel()
 {
@@ -370,10 +372,36 @@ void CUCL_InterfaceDlg::OnClickedSecurityLevel()
 	}
 	else
 	{
-		MessageBox(_T("security level"), _T("安全能级码"), 0);
+		CString SELC(explainSELC(ucl->getCode()).c_str());
+		MessageBox(SELC, _T("安全能级码"), 0);
 	}
 }
 
+void CUCL_InterfaceDlg::OnClickedLanguage()
+{
+	if (ucl == nullptr)
+	{
+		AfxMessageBox(_T("未打开ucl包"));
+	}
+	else
+	{
+		CString language(explainLanguage(ucl->getCode()).c_str());
+		MessageBox(language, _T("语种"), 0);
+	}
+}
+
+void CUCL_InterfaceDlg::OnClickedContentLength()
+{
+	if (ucl == nullptr)
+	{
+		AfxMessageBox(_T("未打开ucl包"));
+	}
+	else
+	{
+		CString SoC(explainSoC(ucl->getCode()).c_str());
+		MessageBox(SoC, _T("内容长度"), 0);
+	}
+}
 
 void CUCL_InterfaceDlg::OnClickedTimeStamp()
 {
@@ -383,10 +411,10 @@ void CUCL_InterfaceDlg::OnClickedTimeStamp()
 	}
 	else
 	{
-		MessageBox(_T("time stamp"), _T("时间戳"), 0);
+		CString timestamp(explainTimestamp(ucl->getCode()).c_str());
+		MessageBox(timestamp, _T("时间戳"), 0);
 	}
 }
-
 
 void CUCL_InterfaceDlg::OnClickedSerialNumber()
 {
@@ -396,12 +424,13 @@ void CUCL_InterfaceDlg::OnClickedSerialNumber()
 	}
 	else
 	{
-		MessageBox(_T("serial number"), _T("顺序号"), 0);
+		int tmp;
+		CString SN(explainSN(ucl->getCode(),tmp).c_str());
+		MessageBox(SN, _T("顺序号"), 0);
 	}
 }
 
-
-void CUCL_InterfaceDlg::OnClickedReservedBytes()
+void CUCL_InterfaceDlg::OnClickedMultiplexBytes()
 {
 	if (ucl == nullptr)
 	{
@@ -409,7 +438,8 @@ void CUCL_InterfaceDlg::OnClickedReservedBytes()
 	}
 	else
 	{
-		MessageBox(_T("reserved bytes"), _T("保留字节"), 0);
+		CString MB(explainMB(ucl->getCode()).c_str());
+		MessageBox(MB, _T("复用字节段"), 0);
 	}
 }
 
@@ -422,10 +452,10 @@ void CUCL_InterfaceDlg::OnClickedChecksum()
 	}
 	else
 	{
-		MessageBox(_T("checksum"), _T("代码校验和"), 0);
+		CString CC(explainCC(ucl->getCode()).c_str());
+		MessageBox(CC ,_T("代码校验和"), 0);
 	}
 }
-
 
 void CUCL_InterfaceDlg::OnClickedTotalHead()
 {
@@ -438,7 +468,6 @@ void CUCL_InterfaceDlg::OnClickedTotalHead()
 		totalHeadDlg.DoModal();
 	}
 }
-
 
 void CUCL_InterfaceDlg::OnClickedCdps()
 {
@@ -453,7 +482,6 @@ void CUCL_InterfaceDlg::OnClickedCdps()
 	
 }
 
-
 void CUCL_InterfaceDlg::OnClickedCgps()
 {
 	if (ucl == nullptr)
@@ -465,3 +493,6 @@ void CUCL_InterfaceDlg::OnClickedCgps()
 		cgpsDlg.DoModal();
 	}
 }
+
+
+

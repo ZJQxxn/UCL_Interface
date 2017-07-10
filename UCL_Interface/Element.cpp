@@ -58,21 +58,6 @@ Element::Element(vector<string>::iterator read_it)
 
 /*不同属性元素的计算函数*/
 
-/*vector<int> Element::analyse()
-{
-	vector<int> result;
-	string sub_Info;//保存速配信息分量
-	sub_Info = reverse(get_Length()[0].substr(2));
-	for (size_t index = 0; index < sub_Info.length(); ++index)
-	{
-		if (sub_Info[index] == '1')
-		{
-			result.push_back(index);
-		}
-	}
-	return result;
-}*/
-
 int Element::keywordsNum()
 {
 	return (stringToInt(get_Length()[0].substr(2, 3)) + 1);

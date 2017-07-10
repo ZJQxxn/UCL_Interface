@@ -56,4 +56,9 @@ public:
 	CCDPSDlg cdpsDlg;
 	CCGPSDlg cgpsDlg;
 	CString m_filename;
+	afx_msg void OnBnClickedExtension();
+	afx_msg void OnClickedPriorityPolicy();
+	afx_msg void OnClickedLanguage();
+	afx_msg void OnClickedContentLength();
+	afx_msg void OnClickedMultiplexBytes();
 };

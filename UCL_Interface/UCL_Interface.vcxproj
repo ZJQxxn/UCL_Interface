@@ -104,6 +104,7 @@
   <ItemGroup>
     <ClInclude Include="CDPSDlg.h" />
     <ClInclude Include="CGPSDlg.h" />
+    <ClInclude Include="Code_Exp.h" />
     <ClInclude Include="Element.h" />
     <ClInclude Include="ElementInfo.h" />
     <ClInclude Include="global.h" />
@@ -120,6 +121,7 @@
   <ItemGroup>
     <ClCompile Include="CDPSDlg.cpp" />
     <ClCompile Include="CGPSDlg.cpp" />
+    <ClCompile Include="Code_Exp.cpp" />
     <ClCompile Include="Element.cpp" />
     <ClCompile Include="ElementInfo.cpp" />
     <ClCompile Include="global.cpp" />
