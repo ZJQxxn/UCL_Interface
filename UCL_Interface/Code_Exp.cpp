@@ -602,34 +602,42 @@ string explainTimestamp(vector<string>& code)
 string explainSN(vector<string>& code,int &length)
 {
 	string result;
-	string SN_first = code[23].substr(6, 2);
-	string SN_second = code[23].substr(4, 2);			
-	//第一部分
-	if (SN_first == "00")
+	string SN_first;
+	string SN_second;
+	string SN_third;
+	string SN_judge = code[23];
+	//第一部分，判断域的总长度
+	if (SN_judge.substr(6, 2) == "00" || SN_judge.substr(6, 2) == "01")
 	{
-		result += "该域总长度为1字节\n";
 		length = 1;
-	}
-	else if (SN_first == "01")
-	{
 		result += "该域总长度为1字节\n";
-		length = 1;
+		SN_first = SN_judge.substr(6, 2);
+		SN_second = SN_judge.substr(4, 2);
+		SN_third = SN_judge.substr(0, 4);
 	}
-	else if (SN_first == "10")
+	else if ((SN_judge += code[24]).substr(14, 2) == "10")
 	{
-		result += "该域总长度为2字节\n";
 		length = 2;
+		result += "该域总长度为2字节\n";
+		//SN_judge += code[24];
+		SN_first = SN_judge.substr(14, 2);
+		SN_second = SN_judge.substr(12, 2);
+		SN_third = SN_judge.substr(0, 12);
 	}
-	else if (SN_first == "11")
+	else if ((SN_judge += code[25]).substr(22, 2) == "11")
 	{
-		result += "该域总长度为3字节\n";
 		length = 3;
+		result += "该域总长度为3字节\n";
+		//SN_judge += code[25];
+		SN_first = SN_judge.substr(22, 2);
+		SN_second = SN_judge.substr(20, 2);
+		SN_third = SN_judge.substr(0, 20);
 	}
 	//第二部分和第三部分
 	if (SN_first == "01")
 	{
-		string SN_second_and_third = code[23].substr(0, 6);
-		result += "顺序号：" + to_string(string_to_number(SN_second_and_third));
+		string temp = SN_second + SN_third;
+		result += "顺序号：" + to_string(string_to_number(temp)) + '\n';
 	}
 	else if (SN_first == "10" || SN_first == "11")
 	{
@@ -643,8 +651,7 @@ string explainSN(vector<string>& code,int &length)
 			{
 				result += "第三部分记录的是一般顺序号\n";
 			}
-			string SN_third = code[23].substr(0, 4) + code[24];
-			result += "1毫秒内所分配的顺序号：" + to_string(string_to_number(SN_third));
+			result += "第三部分：" + to_string(string_to_number(SN_third));
 		}
 
 		if (SN_first == "11")
@@ -657,9 +664,8 @@ string explainSN(vector<string>& code,int &length)
 			{
 				result += "第三部分记录的是一般顺序号\n";
 			}
-			string SN_third = code[23].substr(0, 4) + code[24] + code[25];
-			result += "1毫秒内所分配的顺序号：" + to_string(string_to_number(SN_third));
-		}		
+			result += "第三部分：" + to_string(string_to_number(SN_third));
+		}
 	}
 	return result;
 }

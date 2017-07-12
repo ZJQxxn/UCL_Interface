@@ -424,8 +424,9 @@ void CUCL_InterfaceDlg::OnClickedSerialNumber()
 	}
 	else
 	{
-		int tmp;
+		int tmp=0;
 		CString SN(explainSN(ucl->getCode(),tmp).c_str());
+		//SN = CString("")
 		MessageBox(SN, _T("Ë³ÐòºÅ"), 0);
 	}
 }
