@@ -8,10 +8,8 @@
 4. 在属性集合窗口，点击相应按钮显示该属性元素的信息。
 5. 在“属性元素信息”点击“详细”按钮，窗口展开，显示属性元素的详细信息。
 
-## 2.待解决问题 ##
-1.Qt
   
-## 3.Tips ##
+## 2.Tips ##
 1. 设置按钮是否可用。
 
     GetDlgItem(IDC_BUTTON_Provenance)->EnableWindow(FALSE);
